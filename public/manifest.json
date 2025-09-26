@@ -1,0 +1,27 @@
+{
+  "name": "Wesley Saraiva - Links",
+  "short_name": "Wesley Links",
+  "description": "Links do Wesley Saraiva - Desenvolvedor Full Stack em um Game Boy retrô interativo",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#9bbc0f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/images/Logo Uni.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/Logo Uni.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["portfolio", "links", "developer"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}

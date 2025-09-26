@@ -1,21 +1,32 @@
-@import "tailwindcss";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #f0000000;
-    color: #ffffff;
-    overflow: hidden;
-    --webkit-font-smoothing: none;
-    font-smooth: never;
+  background: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
 }
 
 /* Remove outline em elementos focados para manter a estética retro */
 *:focus {
-    outline: none;
+  outline: none;
+}
+
+/* Animação de piscar para o cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
 }
