@@ -1,5 +1,3 @@
-
-
 import { useCallback } from 'react';
 import type { DPadDirection, ActionButton } from '../types/gameboy';
 import { ANIMATION_CONFIG } from '../constants/gameboy';

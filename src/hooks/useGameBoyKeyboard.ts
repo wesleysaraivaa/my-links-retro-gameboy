@@ -1,5 +1,3 @@
-
-
 import { useEffect, useCallback } from 'react';
 import type { DPadDirection, ActionButton } from '../types/gameboy';
 import { KEYBOARD_MAPPING } from '../types/gameboy';

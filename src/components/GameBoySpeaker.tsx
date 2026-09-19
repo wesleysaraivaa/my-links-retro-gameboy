@@ -1,5 +1,3 @@
-
-// no React import needed for JSX in modern setups
 import { CSS_CLASSES, SPEAKER_LINES_COUNT } from '../constants/gameboy';
 
 const GameBoySpeaker = () => {

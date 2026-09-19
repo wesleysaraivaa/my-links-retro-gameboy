@@ -1,8 +1,3 @@
-/**
- * Tipos específicos para o Game Boy Console
- * Define as interfaces e tipos utilizados em todo o sistema
- */
-
 // Tipos para direções do D-Pad
 export type DPadDirection = 'up' | 'down' | 'left' | 'right';
 
