@@ -1,14 +1,35 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { DPadDirection, ActionButton, RegisterButtonHandler } from '../types/gameboy';
 
+type OpenMode = 'external' | 'internal';
+
 export function useGameBoyMenu(
-  links: Array<{ url: string }>,
+  links: Array<{ url: string; internal?: boolean }>,
   playSound: (type: 'menu' | 'select' | 'startup') => void,
   onButtonPress: RegisterButtonHandler,
-  openLink: (url: string) => void
+  openLink: (url: string) => void,
+  onSelectInternal?: (index: number) => void,
+  onBack?: () => void
 ) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const openedRef = useRef(false);
+
+  const openCurrent = useCallback(() => {
+    if (openedRef.current) return;
+    const item = links[selectedIndex];
+    if (!item) return;
+    const mode: OpenMode = item.internal ? 'internal' : 'external';
+    openedRef.current = true;
+    playSound('select');
+    if (mode === 'internal') {
+      if (onSelectInternal) onSelectInternal(selectedIndex);
+    } else {
+      openLink(item.url);
+    }
+    setTimeout(() => {
+      openedRef.current = false;
+    }, 300);
+  }, [links, selectedIndex, playSound, onSelectInternal, openLink]);
 
   const handleNavigation = useCallback((direction: DPadDirection) => {
     switch (direction) {
@@ -37,15 +58,14 @@ export function useGameBoyMenu(
     switch (button) {
       case 'a':
       case 'start':
-        if (openedRef.current) return;
-        openedRef.current = true;
-        playSound('select');
-        openLink(links[selectedIndex].url);
-        setTimeout(() => {
-          openedRef.current = false;
-        }, 300);
+        openCurrent();
         break;
       case 'b':
+        if (onBack) {
+          onBack();
+          playSound('menu');
+          return;
+        }
         setSelectedIndex(prev => {
           if (prev === 0) {
             playSound('menu');
@@ -63,7 +83,7 @@ export function useGameBoyMenu(
         });
         break;
     }
-  }, [links, selectedIndex, playSound, openLink]);
+  }, [links.length, playSound, openCurrent, onBack]);
 
   useEffect(() => {
     onButtonPress('navigation', handleNavigation);
@@ -108,5 +128,6 @@ export function useGameBoyMenu(
   return {
     selectedIndex,
     setSelectedIndex,
+    openCurrent,
   };
 }

@@ -17,6 +17,8 @@ export default {
         'blink': 'blink 1s infinite',
         'button-press': 'button-press 0.1s ease',
         'cursor-pulse': 'cursor-pulse 0.9s ease-in-out infinite',
+        'screen-slide-in': 'screen-slide-in 260ms steps(6, end) both',
+        'screen-fade-out': 'screen-fade-out 140ms steps(3, end) both',
       },
       keyframes: {
         blink: {
@@ -31,6 +33,14 @@ export default {
         'cursor-pulse': {
           '0%, 100%': { opacity: '1', letterSpacing: '0.08em' },
           '50%': { opacity: '0.95', letterSpacing: '0.11em' },
+        },
+        'screen-slide-in': {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'screen-fade-out': {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(-12%)', opacity: '0' },
         },
       },
       boxShadow: {

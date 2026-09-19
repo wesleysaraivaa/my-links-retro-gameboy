@@ -7,6 +7,7 @@ import {
   Code,
   Mail,
   Music,
+  User,
 } from "lucide-react";
 import { useAudio } from "../hooks/useAudio";
 import { useGameBoyMenu } from "../hooks/useGameBoyMenu";
@@ -15,10 +16,15 @@ import { SCREEN_LINKS_BASE } from "../constants/gameboy";
 import GameBoyHeader from "./GameBoyHeader";
 import GameBoyMenu from "./GameBoyMenu";
 import BlinkingCursor from "./BlinkingCursor";
+import ProfileScreen from "./ProfileScreen";
 
 interface GameBoyScreenContentProps {
   onButtonPress: RegisterButtonHandler;
 }
+
+type ActiveScreen = 'menu' | 'profile';
+
+const SCREEN_PROFILE_INDEX = 0;
 
 const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
   const {
@@ -28,8 +34,11 @@ const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
     isBackgroundMusicMuted,
   } = useAudio();
   const [isMuted, setIsMuted] = useState(isBackgroundMusicMuted());
+  const [activeScreen, setActiveScreen] = useState<ActiveScreen>('menu');
+  const [screenKey, setScreenKey] = useState(0);
 
   const links = [
+    { icon: User, label: 'PROFILE', url: '', internal: true },
     { icon: Github, ...SCREEN_LINKS_BASE[0] },
     { icon: Linkedin, ...SCREEN_LINKS_BASE[1] },
     { icon: Coffee, ...SCREEN_LINKS_BASE[2] },
@@ -55,11 +64,25 @@ const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
     }
   }, []);
 
+  const handleSelectInternal = useCallback((index: number) => {
+    if (index === SCREEN_PROFILE_INDEX) {
+      setActiveScreen('profile');
+      setScreenKey(prev => prev + 1);
+    }
+  }, []);
+
+  const handleBackToMenu = useCallback(() => {
+    if (activeScreen === 'menu') return;
+    setActiveScreen('menu');
+  }, [activeScreen]);
+
   const { selectedIndex, setSelectedIndex } = useGameBoyMenu(
     links,
     playSound,
     onButtonPress,
-    handleLinkClick
+    handleLinkClick,
+    handleSelectInternal,
+    activeScreen === 'profile' ? handleBackToMenu : undefined
   );
 
   const handleToggleMusic = () => {
@@ -77,14 +100,29 @@ const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
         isMusicPlaying={!isMuted}
         onToggleMusic={handleToggleMusic}
       />
-      <GameBoyMenu
-        links={links}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
-        playSound={playSound}
-        onLinkClick={handleLinkClick}
-      />
-      <BlinkingCursor />
+      <div className="h-[calc(100%-40px)] relative">
+        {activeScreen === 'menu' && (
+          <div key={`menu-${screenKey}`} className="w-full h-full">
+            <GameBoyMenu
+              links={links}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
+              playSound={playSound}
+              onLinkClick={(url) => {
+                if (selectedIndex === SCREEN_PROFILE_INDEX) {
+                  handleSelectInternal(SCREEN_PROFILE_INDEX);
+                  return;
+                }
+                handleLinkClick(url);
+              }}
+            />
+          </div>
+        )}
+        {activeScreen === 'profile' && (
+          <ProfileScreen key={`profile-${screenKey}`} onBack={handleBackToMenu} />
+        )}
+      </div>
+      {activeScreen === 'menu' && <BlinkingCursor />}
     </div>
   );
 };
