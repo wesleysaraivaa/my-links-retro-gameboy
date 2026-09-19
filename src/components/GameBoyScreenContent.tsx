@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   Github,
   Linkedin,
@@ -39,10 +39,27 @@ const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
     { icon: Mail, ...SCREEN_LINKS_BASE[6] },
   ];
 
+  const handleLinkClick = useCallback((url: string) => {
+    try {
+      if (!url || url === '#') {
+        console.warn('Link inválido ou em construção');
+        return;
+      }
+      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        console.warn('Falha ao abrir link. Verifique se o popup está bloqueado.');
+        window.location.href = url;
+      }
+    } catch (error) {
+      console.error('Erro ao abrir link:', error);
+    }
+  }, []);
+
   const { selectedIndex, setSelectedIndex } = useGameBoyMenu(
     links,
     playSound,
-    onButtonPress
+    onButtonPress,
+    handleLinkClick
   );
 
   const handleToggleMusic = () => {
@@ -54,27 +71,6 @@ const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
     setIsMuted(!isMuted);
   };
 
-  const handleLinkClick = (url: string) => {
-    try {
-      // Verifica se a URL é válida
-      if (!url || url === '#') {
-        console.warn('Link inválido ou em construção');
-        return;
-      }
-      
-      // Abre o link em nova aba
-      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-      
-      // Verifica se a janela foi aberta com sucesso
-      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-        console.warn('Falha ao abrir link. Verifique se o popup está bloqueado.');
-        // Fallback: tenta abrir na mesma janela
-        window.location.href = url;
-      }
-    } catch (error) {
-      console.error('Erro ao abrir link:', error);
-    }
-  };
   return (
     <div className="w-full h-full text-gb-dark-green font-gameboy text-xs leading-tight p-2 relative overflow-hidden">
       <GameBoyHeader

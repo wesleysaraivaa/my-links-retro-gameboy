@@ -16,6 +16,7 @@ export default {
       animation: {
         'blink': 'blink 1s infinite',
         'button-press': 'button-press 0.1s ease',
+        'cursor-pulse': 'cursor-pulse 0.9s ease-in-out infinite',
       },
       keyframes: {
         blink: {
@@ -26,6 +27,10 @@ export default {
           '0%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(0.95)' },
           '100%': { transform: 'scale(1)' },
+        },
+        'cursor-pulse': {
+          '0%, 100%': { opacity: '1', letterSpacing: '0.08em' },
+          '50%': { opacity: '0.95', letterSpacing: '0.11em' },
         },
       },
       boxShadow: {
