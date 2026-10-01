@@ -2,67 +2,97 @@ import { useCallback } from 'react';
 import type { DPadDirection, ActionButton } from '../types/gameboy';
 import { ANIMATION_CONFIG } from '../constants/gameboy';
 
+type AnyButtonEvent =
+  | React.MouseEvent<HTMLButtonElement>
+  | React.TouchEvent<HTMLButtonElement>;
+
 interface UseGameBoyControlsProps {
   onDPadPress: (direction: DPadDirection) => void;
   onActionButton: (button: ActionButton) => void;
 }
 
 export const useGameBoyControls = ({ onDPadPress, onActionButton }: UseGameBoyControlsProps) => {
-  
-  // Handler genérico para animação de botões
-  const handleButtonAnimation = useCallback((event: React.MouseEvent<HTMLButtonElement>, animationClass: string) => {
+
+  const handleButtonAnimation = useCallback((event: AnyButtonEvent, animationClass: string) => {
     const target = event.currentTarget;
     target.classList.add(animationClass);
   }, []);
 
-  const handleButtonAnimationEnd = useCallback((event: React.MouseEvent<HTMLButtonElement>, animationClass: string) => {
+  const handleButtonAnimationEnd = useCallback((event: AnyButtonEvent, animationClass: string) => {
     const target = event.currentTarget;
     target.classList.remove(animationClass);
   }, []);
 
-  // Handlers específicos para D-Pad
   const handleDPadPress = useCallback((direction: DPadDirection) => {
     onDPadPress(direction);
   }, [onDPadPress]);
 
-  // Handlers específicos para botões de ação
   const handleActionButtonPress = useCallback((button: ActionButton) => {
     onActionButton(button);
   }, [onActionButton]);
 
-  // Handlers para eventos de mouse dos botões D-Pad
-  const createDPadHandlers = useCallback((direction: DPadDirection) => ({
-    onClick: () => handleDPadPress(direction),
-    onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => 
-      handleButtonAnimation(e, ANIMATION_CONFIG.buttonPress),
-    onMouseUp: (e: React.MouseEvent<HTMLButtonElement>) => 
-      handleButtonAnimationEnd(e, ANIMATION_CONFIG.buttonPress),
-    onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => 
-      handleButtonAnimationEnd(e, ANIMATION_CONFIG.buttonPress),
-  }), [handleDPadPress, handleButtonAnimation, handleButtonAnimationEnd]);
+  const preventTouchDefault = useCallback((e: React.TouchEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  }, []);
 
-  // Handlers para eventos de mouse dos botões A/B
-  const createActionButtonHandlers = useCallback((button: ActionButton) => ({
-    onClick: () => handleActionButtonPress(button),
-    onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => {
-      const animationClass = button === 'a' || button === 'b' 
-        ? ANIMATION_CONFIG.buttonPressed 
-        : ANIMATION_CONFIG.pillPressed;
+  const createDPadHandlers = useCallback((direction: DPadDirection) => {
+    const press = () => handleDPadPress(direction);
+    const animStart = (e: AnyButtonEvent) =>
+      handleButtonAnimation(e, ANIMATION_CONFIG.buttonPress);
+    const animEnd = (e: AnyButtonEvent) =>
+      handleButtonAnimationEnd(e, ANIMATION_CONFIG.buttonPress);
+
+    return {
+      onClick: press,
+      onMouseDown: animStart,
+      onMouseUp: animEnd,
+      onMouseLeave: animEnd,
+      onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => {
+        preventTouchDefault(e);
+        animStart(e);
+        press();
+      },
+      onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => {
+        preventTouchDefault(e);
+        animEnd(e);
+      },
+      onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => {
+        preventTouchDefault(e);
+        animEnd(e);
+      },
+    };
+  }, [handleDPadPress, handleButtonAnimation, handleButtonAnimationEnd, preventTouchDefault]);
+
+  const createActionButtonHandlers = useCallback((button: ActionButton) => {
+    const press = () => handleActionButtonPress(button);
+    const animationClass = button === 'a' || button === 'b'
+      ? ANIMATION_CONFIG.buttonPressed
+      : ANIMATION_CONFIG.pillPressed;
+    const animStart = (e: AnyButtonEvent) =>
       handleButtonAnimation(e, animationClass);
-    },
-    onMouseUp: (e: React.MouseEvent<HTMLButtonElement>) => {
-      const animationClass = button === 'a' || button === 'b' 
-        ? ANIMATION_CONFIG.buttonPressed 
-        : ANIMATION_CONFIG.pillPressed;
+    const animEnd = (e: AnyButtonEvent) =>
       handleButtonAnimationEnd(e, animationClass);
-    },
-    onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => {
-      const animationClass = button === 'a' || button === 'b' 
-        ? ANIMATION_CONFIG.buttonPressed 
-        : ANIMATION_CONFIG.pillPressed;
-      handleButtonAnimationEnd(e, animationClass);
-    },
-  }), [handleActionButtonPress, handleButtonAnimation, handleButtonAnimationEnd]);
+
+    return {
+      onClick: press,
+      onMouseDown: animStart,
+      onMouseUp: animEnd,
+      onMouseLeave: animEnd,
+      onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => {
+        preventTouchDefault(e);
+        animStart(e);
+        press();
+      },
+      onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => {
+        preventTouchDefault(e);
+        animEnd(e);
+      },
+      onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => {
+        preventTouchDefault(e);
+        animEnd(e);
+      },
+    };
+  }, [handleActionButtonPress, handleButtonAnimation, handleButtonAnimationEnd, preventTouchDefault]);
 
   return {
     createDPadHandlers,

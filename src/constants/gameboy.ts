@@ -15,28 +15,28 @@ export const DPAD_CONFIG: DPadConfig = {
       label: "▲",
       position: { top: "0", left: "50%" },
       className:
-        "absolute top-0 left-1/2 transform -translate-x-1/2 w-5 h-5 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10",
+        "absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10 select-none active:scale-95 touch-manipulation",
     },
     down: {
       id: "dpad-down",
       label: "▼",
       position: { bottom: "0", left: "50%" },
       className:
-        "absolute bottom-0 left-1/2 transform -translate-x-1/2 w-5 h-5 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10",
+        "absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10 select-none active:scale-95 touch-manipulation",
     },
     left: {
       id: "dpad-left",
       label: "◄",
       position: { left: "0", top: "50%" },
       className:
-        "absolute left-0 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10",
+        "absolute left-0 top-1/2 transform -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10 select-none active:scale-95 touch-manipulation",
     },
     right: {
       id: "dpad-right",
       label: "►",
       position: { right: "0", top: "50%" },
       className:
-        "absolute right-0 top-1/2 transform -translate-y-1/2 w-5 h-5 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10",
+        "absolute right-0 top-1/2 transform -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 bg-transparent border-none cursor-pointer flex items-center justify-center transition-all duration-100 z-10 select-none active:scale-95 touch-manipulation",
     },
   },
 };
@@ -48,28 +48,28 @@ export const ACTION_BUTTONS_CONFIG: ActionButtonsConfig = {
     label: "A",
     position: {},
     className:
-      "w-8 h-8 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button cursor-pointer transition-all duration-100",
+      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
   b: {
     id: "button-b",
     label: "B",
     position: {},
     className:
-      "w-8 h-8 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button cursor-pointer transition-all duration-100",
+      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
   select: {
     id: "button-select",
     label: "SELECT",
     position: {},
     className:
-      "w-6 h-2 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill cursor-pointer transition-all duration-100",
+      "w-8 h-2.5 sm:w-9 sm:h-3 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
   start: {
     id: "button-start",
     label: "START",
     position: {},
     className:
-      "w-6 h-2 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill cursor-pointer transition-all duration-100",
+      "w-8 h-2.5 sm:w-9 sm:h-3 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
 };
 
@@ -91,9 +91,9 @@ export const CSS_CLASSES = {
     "w-full h-full min-h-[140px] sm:min-h-[180px] bg-gb-green border-2 border-gray-800 rounded-sm relative overflow-hidden shadow-screen",
 
   // Controles
-  controlsSection: "flex justify-between px-6 sm:px-10 w-full mt-4 sm:mt-8",
+  controlsSection: "flex justify-between px-4 sm:px-8 w-full mt-4 sm:mt-8",
   dpadContainer: "relative",
-  dpadStructure: "w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] relative",
+  dpadStructure: "w-[64px] h-[64px] sm:w-[72px] sm:h-[72px] relative",
   actionButtonsContainer: "flex flex-col gap-2 sm:gap-3 items-center",
 
   // Botões Select/Start
@@ -108,17 +108,17 @@ export const CSS_CLASSES = {
 
   // Estrutura do D-Pad
   dpadVertical:
-    "absolute top-0 left-1/2 transform -translate-x-1/2 w-5 h-[60px] bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad pointer-events-none",
+    "absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-[64px] sm:w-7 sm:h-[72px] bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad pointer-events-none",
   dpadHorizontal:
-    "absolute top-1/2 left-0 transform -translate-y-1/2 w-[60px] h-5 bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad pointer-events-none",
+    "absolute top-1/2 left-0 transform -translate-y-1/2 w-[64px] h-6 sm:w-[72px] sm:h-7 bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad pointer-events-none",
   dpadCenter:
-    "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-gray-700 rounded-sm pointer-events-none",
+    "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 bg-gray-700 rounded-sm pointer-events-none",
 
   // Texto dos botões
   buttonLabel:
     "font-gameboy text-xs text-gray-500 font-bold pointer-events-none",
   buttonLabelSmall: "font-gameboy text-[6px] text-gray-500 pointer-events-none",
-  dpadIcon: "text-xs text-gray-600 font-bold drop-shadow-sm",
+  dpadIcon: "text-sm sm:text-base text-gray-600 font-bold drop-shadow-sm",
 
   // Identificação
   consoleName: "font-gameboy text-md text-gray-600 mb-0.5",
@@ -139,22 +139,14 @@ export const SPEAKER_LINES_COUNT = 6;
 export const SCREEN_LINKS_BASE = [
   { label: "GITHUB", url: "https://github.com/wesleysaraivaa" },
   { label: "LINKEDIN", url: "https://www.linkedin.com/in/wesleysaraivaa/" },
-  { label: "PORTFOLIO", url: "https://my-portifolio-pied.vercel.app/" },
+  { label: "PORTFOLIO", url: "https://portifolio2026-steel.vercel.app/" },
   { label: "INSTAGRAM", url: "https://www.instagram.com/uniwersotech/" },
-  { label: "BLOG TECH", url: "https://pagina-inexistente" },
   {
     label: "PLAYLIST",
     url: "https://open.spotify.com/playlist/0W2oSn7Q1VLR1sT7JAvEyn?si=0c584de3e5494593",
   },
   { label: "CONTATO", url: "https://wa.me/5588997130026" },
-] as const;
-
-// Mensagens da tela de carregamento
-export const LOADING_MESSAGES = [
-  "WESLEY",
-  "LINKS",
-  "CARREGANDO...",
-  "PRONTO!",
+  { label: "BLOG TECH", url: "/" },
 ] as const;
 
 // Textos padrão
@@ -162,3 +154,12 @@ export const HEADER_TITLE = "Hello, World!";
 export const MENU_TITLE = "ESPECIALISTA TECH";
 export const DEFAULT_CONSOLE_NAME = "Wesley";
 export const DEFAULT_CONSOLE_TYPE = "Links";
+
+// Mensagens de loading (tela opcional)
+export const LOADING_MESSAGES = [
+  "Inicializando sistema...",
+  "Carregando ROM...",
+  "Verificando memória...",
+  "Lendo cartucho...",
+  "Preparando interface...",
+];

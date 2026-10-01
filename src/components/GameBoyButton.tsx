@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { ActionButton } from '../types/gameboy';
 import { ACTION_BUTTONS_CONFIG, CSS_CLASSES } from '../constants/gameboy';
@@ -9,6 +8,9 @@ interface GameBoyButtonProps {
   onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseUp: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => void;
   className?: string;
   showLabel?: boolean;
 }
@@ -19,12 +21,15 @@ const GameBoyButton = ({
   onMouseDown,
   onMouseUp,
   onMouseLeave,
+  onTouchStart,
+  onTouchEnd,
+  onTouchCancel,
   className,
   showLabel = true,
 }: GameBoyButtonProps) => {
   const config = ACTION_BUTTONS_CONFIG[button];
   const isPillButton = button === 'select' || button === 'start';
-  
+
   return (
     <div className="flex flex-col items-center gap-1">
       <button
@@ -34,11 +39,14 @@ const GameBoyButton = ({
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseLeave}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchCancel}
         aria-label={`Botão ${config.label}`}
         type="button"
       />
       {showLabel && (
-        <span 
+        <span
           className={isPillButton ? CSS_CLASSES.buttonLabelSmall : CSS_CLASSES.buttonLabel}
           aria-hidden="true"
         >

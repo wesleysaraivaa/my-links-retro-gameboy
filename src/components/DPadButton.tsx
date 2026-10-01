@@ -8,6 +8,9 @@ interface DPadButtonProps {
   onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseUp: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => void;
 }
 
 const DPadButton = ({
@@ -16,9 +19,12 @@ const DPadButton = ({
   onMouseDown,
   onMouseUp,
   onMouseLeave,
+  onTouchStart,
+  onTouchEnd,
+  onTouchCancel,
 }: DPadButtonProps) => {
   const config = DPAD_CONFIG.directions[direction];
-  
+
   return (
     <button
       id={config.id}
@@ -27,6 +33,9 @@ const DPadButton = ({
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseLeave}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchCancel}
       aria-label={`Direção ${direction}`}
       type="button"
     >
