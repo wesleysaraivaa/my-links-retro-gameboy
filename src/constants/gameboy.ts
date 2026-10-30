@@ -143,7 +143,7 @@ export const SCREEN_LINKS_BASE = [
   { label: "INSTAGRAM", url: "https://www.instagram.com/uniwersotech/" },
   {
     label: "PLAYLIST",
-    url: "https://open.spotify.com/playlist/0W2oSn7Q1VLR1sT7JAvEyn?si=0c584de3e5494593",
+    url: "https://open.spotify.com/playlist/6I4XrDFJHCo7hgZ0He6uHi?si=c883001fcfee417e",
   },
   { label: "CONTATO", url: "https://wa.me/5588997130026" },
   { label: "BLOG TECH", url: "/" },

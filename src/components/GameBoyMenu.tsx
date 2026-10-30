@@ -11,7 +11,7 @@ interface GameBoyMenuProps {
   selectedIndex: number;
   setSelectedIndex: (index: number) => void;
   playSound: (sound: SoundType) => void;
-  onLinkClick: (url: string) => void;
+  onLinkClick?: (url: string) => void;
 }
 
 const GameBoyMenu = ({
@@ -19,7 +19,6 @@ const GameBoyMenu = ({
   selectedIndex,
   setSelectedIndex,
   playSound,
-  onLinkClick,
 }: GameBoyMenuProps) => (
   <div
     className="h-[calc(100%-40px)] flex flex-col"
@@ -37,33 +36,26 @@ const GameBoyMenu = ({
         const Icon = link.icon;
         const isSelected = selectedIndex === index;
         return (
-          <div
+          <a
             key={index}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
             role="option"
             aria-selected={isSelected ? 'true' : 'false'}
             tabIndex={-1}
             data-index={index}
-            className={`group relative flex items-center gap-1 sm:gap-1.5 px-0.5 sm:px-1 py-[3px] sm:py-1 cursor-pointer select-none transition-colors duration-100 outline-none ${
-              isSelected ? 'bg-gb-dark-green text-gb-green' : 'text-gb-dark-green hover:bg-gb-dark-green/10 active:bg-gb-dark-green/20'
+            className={`group relative flex items-center gap-1 sm:gap-1.5 px-0.5 sm:px-1 py-[3px] sm:py-1 cursor-pointer select-none transition-colors duration-100 outline-none no-underline ${
+              isSelected
+                ? 'bg-gb-dark-green text-gb-green'
+                : 'text-gb-dark-green hover:bg-gb-dark-green/10 active:bg-gb-dark-green/20'
             }`}
             onClick={(e) => {
               e.stopPropagation();
-              const wasAlreadySelected = selectedIndex === index;
               setSelectedIndex(index);
-              if (wasAlreadySelected) {
-                playSound('select');
-                onLinkClick(link.url);
-              } else {
-                playSound('menu');
-              }
+              playSound('select');
             }}
             onMouseEnter={() => {
-              if (selectedIndex !== index) {
-                setSelectedIndex(index);
-                playSound('menu');
-              }
-            }}
-            onTouchStart={() => {
               if (selectedIndex !== index) {
                 setSelectedIndex(index);
                 playSound('menu');
@@ -97,7 +89,7 @@ const GameBoyMenu = ({
             >
               ◂
             </span>
-          </div>
+          </a>
         );
       })}
     </div>

@@ -62,6 +62,7 @@ export const KEYBOARD_MAPPING = {
   KeyS: 'select' as ActionButton,
   Enter: 'start' as ActionButton,
   Space: 'start' as ActionButton,
+  Escape: 'b' as ActionButton,
 } as const;
 
 // Tipo para eventos de teclado
