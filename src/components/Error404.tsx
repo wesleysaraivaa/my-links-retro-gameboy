@@ -13,13 +13,13 @@ const Error404 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-200 to-gray-400 flex items-center justify-center p-4">
-      <div className="w-[320px] min-h-[480px] h-auto relative drop-shadow-gameboy flex flex-col items-center sm:w-[360px] sm:min-h-[520px]">
-        <div className="w-full h-full bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-[20px_20px_40px_20px] relative border-[3px] border-gray-300 shadow-gameboy-inset flex flex-col items-center justify-center pb-8">
+    <div className="min-h-screen scene-bg flex items-center justify-center p-4">
+      <div className="w-[320px] min-h-[480px] h-auto relative console-contact flex flex-col items-center sm:w-[360px] sm:min-h-[520px]">
+        <div className="w-full h-full bg-[linear-gradient(160deg,#f8f9fa_0%,#e7e9eb_36%,#cfd2d6_70%,#b7bbc1_100%)] rounded-[20px_20px_40px_20px] relative border-[3px] border-gray-300 shadow-gameboy-body flex flex-col items-center justify-center pb-8">
           
           <div className="text-center w-4/5 mt-6 sm:mt-10">
-            <div className="bg-gradient-to-br from-gray-300 to-gray-500 p-[3px] sm:p-[5px] rounded-lg sm:rounded-xl border-2 border-gray-500 shadow-screen-bezel">
-              <div className="w-full h-full min-h-[140px] sm:min-h-[180px] bg-gb-green border-2 border-gray-800 rounded-sm relative overflow-hidden shadow-screen">           
+            <div className="bg-gradient-to-br from-gray-300 to-gray-500 p-[3px] sm:p-[5px] rounded-lg sm:rounded-xl border-2 border-gray-500 shadow-screen-bezel-deep">
+              <div className="w-full h-full min-h-[140px] sm:min-h-[180px] bg-gb-green border-2 border-gray-800 rounded-sm relative overflow-hidden screen-glass shadow-screen-deep">           
 
                 <div className="w-full h-full text-gb-dark-green font-gameboy text-xs leading-tight p-2 relative overflow-hidden flex flex-col items-center justify-center">
                   

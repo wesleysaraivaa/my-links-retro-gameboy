@@ -63,7 +63,7 @@ const AppRouter = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-gray-200 flex items-center justify-center p-4 transition-opacity duration-200">
+      <div className="min-h-screen scene-bg flex items-center justify-center p-4 transition-opacity duration-200">
         <Routes>
           <Route 
             path="/" 

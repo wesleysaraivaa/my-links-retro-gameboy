@@ -41,7 +41,7 @@ const BootScreen = ({ onStart }: BootScreenProps) => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-b from-gray-200 to-gray-400 flex items-center justify-center p-4 transition-opacity duration-200 ${isExiting ? 'opacity-0' : 'opacity-100'}`}
+      className={`min-h-screen scene-bg flex items-center justify-center p-4 transition-opacity duration-200 ${isExiting ? 'opacity-0' : 'opacity-100'}`}
       onClick={handleStart}
       role="button"
       tabIndex={0}

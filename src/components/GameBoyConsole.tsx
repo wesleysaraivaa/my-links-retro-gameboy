@@ -1,3 +1,4 @@
+import { useCallback, useRef } from 'react';
 import { CSS_CLASSES, DPAD_CONFIG } from '../constants/gameboy';
 import GameBoyButton from './GameBoyButton';
 import DPadButton from './DPadButton';
@@ -11,27 +12,51 @@ const GameBoyConsole = ({
   onActionButton,
   enableKeyboard = true 
 }: GameBoyConsoleProps) => {
-  // Hook para gerenciar controles e animações
   const { createDPadHandlers, createActionButtonHandlers } = useGameBoyControls({
     onDPadPress,
     onActionButton,
   });
 
-  // Hook para suporte a teclado
   useGameBoyKeyboard({
     onDPadPress,
     onActionButton,
     enabled: enableKeyboard,
   });
 
+  const sceneRef = useRef<HTMLDivElement>(null);
+
+  // Inclina o console seguindo o mouse (efeito de profundidade 3D)
+  const handleTilt = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const { left, top, width, height } = scene.getBoundingClientRect();
+    const offsetX = (e.clientX - left) / width - 0.5;
+    const offsetY = (e.clientY - top) / height - 0.5;
+    scene.style.setProperty('--tilt-y', `${(offsetX * 10).toFixed(2)}deg`);
+    scene.style.setProperty('--tilt-x', `${(-offsetY * 7).toFixed(2)}deg`);
+  }, []);
+
+  const resetTilt = useCallback(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    scene.style.setProperty('--tilt-y', '0deg');
+    scene.style.setProperty('--tilt-x', '0deg');
+  }, []);
+
   return (
-    <div 
-      className={CSS_CLASSES.consoleContainer}
-      role="application"
-      aria-label="Console Game Boy - Controles de navegação e ação"
+    <div
+      ref={sceneRef}
+      className="tilt-scene"
+      onMouseMove={handleTilt}
+      onMouseLeave={resetTilt}
     >
-      {/* Corpo principal do console - gradiente cinza para simular plástico do Game Boy */}
-      <div className={CSS_CLASSES.consoleBody}>
+      <div
+        className={`${CSS_CLASSES.consoleContainer} tilt-object`}
+        role="application"
+        aria-label="Console Game Boy - Controles de navegação e ação"
+      >
+        {/* Corpo principal do console - gradiente cinza para simular plástico do Game Boy */}
+        <div className={CSS_CLASSES.consoleBody}>
         
         {/* Conteúdo da tela - renderizado diretamente */}
         {children}
@@ -98,6 +123,7 @@ const GameBoyConsole = ({
             <div className={CSS_CLASSES.speakerLine}></div>
             <div className={CSS_CLASSES.speakerLine}></div>
           </div>
+        </div>
         </div>
       </div>
     </div>

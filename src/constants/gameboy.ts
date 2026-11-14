@@ -48,28 +48,28 @@ export const ACTION_BUTTONS_CONFIG: ActionButtonsConfig = {
     label: "A",
     position: {},
     className:
-      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
+      "gb-btn-gloss w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button-deep cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
   b: {
     id: "button-b",
     label: "B",
     position: {},
     className:
-      "w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
+      "gb-btn-gloss w-9 h-9 sm:w-10 sm:h-10 rounded-full border-[3px] border-gb-gray bg-gradient-to-br from-gb-pink to-gb-dark-pink shadow-button-deep cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
   select: {
     id: "button-select",
     label: "SELECT",
     position: {},
     className:
-      "w-8 h-2.5 sm:w-9 sm:h-3 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
+      "w-8 h-2.5 sm:w-9 sm:h-3 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill-deep cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
   start: {
     id: "button-start",
     label: "START",
     position: {},
     className:
-      "w-8 h-2.5 sm:w-9 sm:h-3 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
+      "w-8 h-2.5 sm:w-9 sm:h-3 bg-gradient-to-br from-gray-600 to-gray-700 rounded-sm border border-gray-800 shadow-pill-deep cursor-pointer transition-all duration-100 select-none active:scale-95 touch-manipulation",
   },
 };
 
@@ -77,18 +77,18 @@ export const ACTION_BUTTONS_CONFIG: ActionButtonsConfig = {
 export const CSS_CLASSES = {
   // Container principal
   consoleContainer:
-    "w-[320px] min-h-[480px] h-auto relative drop-shadow-gameboy flex flex-col items-center sm:w-[360px] sm:min-h-[520px]",
+    "w-[320px] min-h-[480px] h-auto relative console-contact flex flex-col items-center sm:w-[360px] sm:min-h-[520px]",
 
   // Corpo do console
   consoleBody:
-    "w-full h-full bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-[20px_20px_40px_20px] relative border-[3px] border-gray-300 shadow-gameboy-inset flex flex-col items-center justify-start pb-8",
+    "w-full h-full bg-[linear-gradient(160deg,#f8f9fa_0%,#e7e9eb_36%,#cfd2d6_70%,#b7bbc1_100%)] rounded-[20px_20px_40px_20px] relative border-[3px] border-gray-300 shadow-gameboy-body flex flex-col items-center justify-start pb-8",
 
   // Tela
   screenSection: "text-center w-4/5 mt-6 sm:mt-10",
   screenBezel:
-    "bg-gradient-to-br from-gray-300 to-gray-500 p-[3px] sm:p-[5px] rounded-lg sm:rounded-xl border-2 border-gray-500 shadow-screen-bezel",
+    "bg-gradient-to-br from-gray-300 to-gray-500 p-[3px] sm:p-[5px] rounded-lg sm:rounded-xl border-2 border-gray-500 shadow-screen-bezel-deep",
   screen:
-    "w-full h-full min-h-[140px] sm:min-h-[180px] bg-gb-green border-2 border-gray-800 rounded-sm relative overflow-hidden shadow-screen",
+    "w-full h-full min-h-[140px] sm:min-h-[180px] bg-gb-green border-2 border-gray-800 rounded-sm relative overflow-hidden screen-glass shadow-screen-deep",
 
   // Controles
   controlsSection: "flex justify-between px-4 sm:px-8 w-full mt-4 sm:mt-8",
@@ -108,17 +108,18 @@ export const CSS_CLASSES = {
 
   // Estrutura do D-Pad
   dpadVertical:
-    "absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-[64px] sm:w-7 sm:h-[72px] bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad pointer-events-none",
+    "absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-[64px] sm:w-7 sm:h-[72px] bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad-deep pointer-events-none",
   dpadHorizontal:
-    "absolute top-1/2 left-0 transform -translate-y-1/2 w-[64px] h-6 sm:w-[72px] sm:h-7 bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad pointer-events-none",
+    "absolute top-1/2 left-0 transform -translate-y-1/2 w-[64px] h-6 sm:w-[72px] sm:h-7 bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm border-2 border-black shadow-dpad-deep pointer-events-none",
   dpadCenter:
-    "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 bg-gray-700 rounded-sm pointer-events-none",
+    "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-b from-gray-700 to-gray-800 rounded-sm shadow-dpad-deep pointer-events-none",
 
   // Texto dos botões
   buttonLabel:
     "font-gameboy text-xs text-gray-500 font-bold pointer-events-none",
   buttonLabelSmall: "font-gameboy text-[6px] text-gray-500 pointer-events-none",
-  dpadIcon: "text-sm sm:text-base text-gray-600 font-bold drop-shadow-sm",
+  dpadIcon:
+    "text-sm sm:text-base text-gray-700 font-bold drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]",
 
   // Identificação
   consoleName: "font-gameboy text-md text-gray-600 mb-0.5",
@@ -128,8 +129,8 @@ export const CSS_CLASSES = {
 // Configurações de animação
 export const ANIMATION_CONFIG = {
   buttonPress: "animate-button-press",
-  buttonPressed: "translate-y-px shadow-button-pressed",
-  pillPressed: "translate-y-px shadow-pill-pressed",
+  buttonPressed: "translate-y-px shadow-button-deep-pressed",
+  pillPressed: "translate-y-px shadow-pill-deep-pressed",
 } as const;
 
 // Número de linhas do alto-falante

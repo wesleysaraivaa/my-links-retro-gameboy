@@ -30,3 +30,101 @@ body {
 .animate-blink {
   animation: blink 1s infinite;
 }
+
+/* ===== Cena de estúdio (luz vinda de cima + brilho de piso) ===== */
+.scene-bg {
+  background-color: #0b0b0e;
+  background-image:
+    radial-gradient(120% 80% at 50% -20%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(60% 45% at 50% 105%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, #23232a 0%, #16161a 45%, #0a0a0c 100%);
+}
+
+/* ===== Objeto em 3D (perspectiva + tilt seguindo o mouse) ===== */
+.tilt-scene {
+  perspective: 1100px;
+  perspective-origin: 50% 42%;
+}
+
+.tilt-object {
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Enquanto o mouse está sobre o console, o acompanhamento é imediato */
+.tilt-scene:hover .tilt-object {
+  transition-duration: 90ms;
+}
+
+/* Sem mouse (touch) ou com movimento reduzido: sem inclinação */
+@media (hover: none), (pointer: coarse) {
+  .tilt-object {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-object {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== Sombra de contato no chão ===== */
+.console-contact::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  width: 88%;
+  height: 34px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0) 72%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== Reflexo de vidro sobre a tela ===== */
+.screen-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  background:
+    linear-gradient(
+      107deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.06) 24%,
+      rgba(255, 255, 255, 0) 46%
+    ),
+    radial-gradient(
+      130% 70% at 50% -25%,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0) 62%
+    );
+}
+
+/* ===== Brilho especular dos botões de plástico (A/B) ===== */
+.gb-btn-gloss {
+  position: relative;
+}
+
+.gb-btn-gloss::after {
+  content: '';
+  position: absolute;
+  left: 16%;
+  top: 10%;
+  width: 46%;
+  height: 32%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
