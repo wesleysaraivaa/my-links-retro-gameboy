@@ -138,19 +138,18 @@ export const SPEAKER_LINES_COUNT = 6;
 // Links base (label e URL) exibidos no menu da tela
 export const SCREEN_LINKS_BASE = [
   { label: "GITHUB", url: "https://github.com/wesleysaraivaa" },
-  { label: "LINKEDIN", url: "https://www.linkedin.com/in/wesleysaraivaa/" },
   { label: "PORTFOLIO", url: "https://portifolio2026-steel.vercel.app/" },
-  { label: "INSTAGRAM", url: "https://www.instagram.com/uniwersotech/" },
+  { label: "UNIWERSOTECH", url: "https://www.instagram.com/uniwersotech/" },
+  { label: "CONTATO", url: "https://wa.me/5588920020301" },
   {
     label: "PLAYLIST",
-    url: "https://open.spotify.com/playlist/6I4XrDFJHCo7hgZ0He6uHi?si=c883001fcfee417e",
+    url: "https://open.spotify.com/playlist/6I4XrDFJHCo7hgZ0He6uHi?si=4d2b9ca53e9e4248",
   },
-  { label: "CONTATO", url: "https://wa.me/5588997130026" },
-  { label: "BLOG TECH", url: "/" },
+  { label: "BLOG TECH"},
 ] as const;
 
 // Textos padrão
-export const HEADER_TITLE = "Hello, World!";
+export const HEADER_TITLE = "Hello World!";
 export const MENU_TITLE = "ESPECIALISTA TECH";
 export const DEFAULT_CONSOLE_NAME = "Wesley";
 export const DEFAULT_CONSOLE_TYPE = "Links";

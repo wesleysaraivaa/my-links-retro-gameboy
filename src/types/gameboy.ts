@@ -67,3 +67,10 @@ export const KEYBOARD_MAPPING = {
 
 // Tipo para eventos de teclado
 export type KeyboardEvent = keyof typeof KEYBOARD_MAPPING;
+
+// Item exibido no menu da tela (url opcional = link ainda não disponível)
+export interface MenuLink {
+  label: string;
+  icon: React.ComponentType<{ size?: string | number }>;
+  url?: string;
+}

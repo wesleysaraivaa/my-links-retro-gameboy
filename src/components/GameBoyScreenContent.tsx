@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import {
   Github,
-  Linkedin,
   Coffee,
   Instagram,
   Music,
@@ -31,12 +30,11 @@ const GameBoyScreenContent = ({ onButtonPress }: GameBoyScreenContentProps) => {
 
   const links = [
     { icon: Github, ...SCREEN_LINKS_BASE[0] },
-    { icon: Linkedin, ...SCREEN_LINKS_BASE[1] },
-    { icon: Coffee, ...SCREEN_LINKS_BASE[2] },
-    { icon: Instagram, ...SCREEN_LINKS_BASE[3] },
+    { icon: Coffee, ...SCREEN_LINKS_BASE[1] },
+    { icon: Instagram, ...SCREEN_LINKS_BASE[2] },
+    { icon: Mail, ...SCREEN_LINKS_BASE[3] },
     { icon: Music, ...SCREEN_LINKS_BASE[4] },
-    { icon: Mail, ...SCREEN_LINKS_BASE[5] },
-    { icon: Code, ...SCREEN_LINKS_BASE[6] },
+    { icon: Code, ...SCREEN_LINKS_BASE[5] },
   ];
 
   const handleLinkClick = useCallback((url: string) => {

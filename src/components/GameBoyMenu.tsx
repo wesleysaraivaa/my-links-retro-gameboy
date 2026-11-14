@@ -1,13 +1,8 @@
-import type { ComponentType } from 'react';
-import type { SoundType } from '../types/gameboy';
+import type { SoundType, MenuLink } from '../types/gameboy';
 import { MENU_TITLE } from '../constants/gameboy';
 
 interface GameBoyMenuProps {
-  links: Array<{
-    icon: ComponentType<{ size?: string | number }>;
-    label: string;
-    url: string;
-  }>;
+  links: MenuLink[];
   selectedIndex: number;
   setSelectedIndex: (index: number) => void;
   playSound: (sound: SoundType) => void;

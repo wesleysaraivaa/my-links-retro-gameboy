@@ -1,8 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import type { DPadDirection, ActionButton, RegisterButtonHandler } from '../types/gameboy';
+import type {
+  DPadDirection,
+  ActionButton,
+  RegisterButtonHandler,
+  MenuLink,
+} from '../types/gameboy';
 
 export function useGameBoyMenu(
-  links: Array<{ url: string }>,
+  links: MenuLink[],
   playSound: (type: 'menu' | 'select' | 'startup') => void,
   onButtonPress: RegisterButtonHandler,
   openLink: (url: string) => void
@@ -13,7 +18,7 @@ export function useGameBoyMenu(
   const openCurrent = useCallback(() => {
     if (openedRef.current) return;
     const item = links[selectedIndex];
-    if (!item) return;
+    if (!item?.url) return;
     openedRef.current = true;
     playSound('select');
     openLink(item.url);
