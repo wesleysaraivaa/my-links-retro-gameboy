@@ -2,9 +2,9 @@ import { useCallback } from 'react';
 import type { DPadDirection, ActionButton } from '../types/gameboy';
 import { ANIMATION_CONFIG } from '../constants/gameboy';
 
-type AnyButtonEvent =
-  | React.MouseEvent<HTMLButtonElement>
-  | React.TouchEvent<HTMLButtonElement>;
+type ButtonEvent =
+  | React.PointerEvent<HTMLButtonElement>
+  | React.MouseEvent<HTMLButtonElement>;
 
 interface UseGameBoyControlsProps {
   onDPadPress: (direction: DPadDirection) => void;
@@ -13,86 +13,50 @@ interface UseGameBoyControlsProps {
 
 export const useGameBoyControls = ({ onDPadPress, onActionButton }: UseGameBoyControlsProps) => {
 
-  const handleButtonAnimation = useCallback((event: AnyButtonEvent, animationClass: string) => {
-    const target = event.currentTarget;
-    target.classList.add(animationClass);
-  }, []);
-
-  const handleButtonAnimationEnd = useCallback((event: AnyButtonEvent, animationClass: string) => {
-    const target = event.currentTarget;
-    target.classList.remove(animationClass);
-  }, []);
-
-  const handleDPadPress = useCallback((direction: DPadDirection) => {
-    onDPadPress(direction);
-  }, [onDPadPress]);
-
-  const handleActionButtonPress = useCallback((button: ActionButton) => {
-    onActionButton(button);
-  }, [onActionButton]);
-
-  const preventTouchDefault = useCallback((e: React.TouchEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  }, []);
+  // classList não aceita string com espaços, então cada classe é aplicada individualmente
+  const toggleAnimationClass = useCallback(
+    (element: HTMLElement, classNames: string, add: boolean) => {
+      classNames
+        .split(' ')
+        .filter(Boolean)
+        .forEach((className) => element.classList.toggle(className, add));
+    },
+    []
+  );
 
   const createDPadHandlers = useCallback((direction: DPadDirection) => {
-    const press = () => handleDPadPress(direction);
-    const animStart = (e: AnyButtonEvent) =>
-      handleButtonAnimation(e, ANIMATION_CONFIG.buttonPress);
-    const animEnd = (e: AnyButtonEvent) =>
-      handleButtonAnimationEnd(e, ANIMATION_CONFIG.buttonPress);
+    const animStart = (e: ButtonEvent) =>
+      toggleAnimationClass(e.currentTarget, ANIMATION_CONFIG.buttonPress, true);
+    const animEnd = (e: ButtonEvent) =>
+      toggleAnimationClass(e.currentTarget, ANIMATION_CONFIG.buttonPress, false);
 
     return {
-      onClick: press,
-      onMouseDown: animStart,
-      onMouseUp: animEnd,
-      onMouseLeave: animEnd,
-      onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => {
-        preventTouchDefault(e);
-        animStart(e);
-        press();
-      },
-      onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => {
-        preventTouchDefault(e);
-        animEnd(e);
-      },
-      onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => {
-        preventTouchDefault(e);
-        animEnd(e);
-      },
+      onClick: () => onDPadPress(direction),
+      onPointerDown: animStart,
+      onPointerUp: animEnd,
+      onPointerLeave: animEnd,
+      onPointerCancel: animEnd,
     };
-  }, [handleDPadPress, handleButtonAnimation, handleButtonAnimationEnd, preventTouchDefault]);
+  }, [onDPadPress, toggleAnimationClass]);
 
   const createActionButtonHandlers = useCallback((button: ActionButton) => {
-    const press = () => handleActionButtonPress(button);
     const animationClass = button === 'a' || button === 'b'
       ? ANIMATION_CONFIG.buttonPressed
       : ANIMATION_CONFIG.pillPressed;
-    const animStart = (e: AnyButtonEvent) =>
-      handleButtonAnimation(e, animationClass);
-    const animEnd = (e: AnyButtonEvent) =>
-      handleButtonAnimationEnd(e, animationClass);
+
+    const animStart = (e: ButtonEvent) =>
+      toggleAnimationClass(e.currentTarget, animationClass, true);
+    const animEnd = (e: ButtonEvent) =>
+      toggleAnimationClass(e.currentTarget, animationClass, false);
 
     return {
-      onClick: press,
-      onMouseDown: animStart,
-      onMouseUp: animEnd,
-      onMouseLeave: animEnd,
-      onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => {
-        preventTouchDefault(e);
-        animStart(e);
-        press();
-      },
-      onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => {
-        preventTouchDefault(e);
-        animEnd(e);
-      },
-      onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => {
-        preventTouchDefault(e);
-        animEnd(e);
-      },
+      onClick: () => onActionButton(button),
+      onPointerDown: animStart,
+      onPointerUp: animEnd,
+      onPointerLeave: animEnd,
+      onPointerCancel: animEnd,
     };
-  }, [handleActionButtonPress, handleButtonAnimation, handleButtonAnimationEnd, preventTouchDefault]);
+  }, [onActionButton, toggleAnimationClass]);
 
   return {
     createDPadHandlers,

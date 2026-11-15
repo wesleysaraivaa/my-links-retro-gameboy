@@ -5,23 +5,19 @@ import { DPAD_CONFIG, CSS_CLASSES } from '../constants/gameboy';
 interface DPadButtonProps {
   direction: DPadDirection;
   onClick: () => void;
-  onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseUp: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => void;
-  onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => void;
-  onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerUp: (e: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerLeave: (e: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerCancel: (e: React.PointerEvent<HTMLButtonElement>) => void;
 }
 
 const DPadButton = ({
   direction,
   onClick,
-  onMouseDown,
-  onMouseUp,
-  onMouseLeave,
-  onTouchStart,
-  onTouchEnd,
-  onTouchCancel,
+  onPointerDown,
+  onPointerUp,
+  onPointerLeave,
+  onPointerCancel,
 }: DPadButtonProps) => {
   const config = DPAD_CONFIG.directions[direction];
 
@@ -30,12 +26,10 @@ const DPadButton = ({
       id={config.id}
       className={config.className}
       onClick={onClick}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseLeave}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-      onTouchCancel={onTouchCancel}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerLeave}
+      onPointerCancel={onPointerCancel}
       aria-label={`Direção ${direction}`}
       type="button"
     >

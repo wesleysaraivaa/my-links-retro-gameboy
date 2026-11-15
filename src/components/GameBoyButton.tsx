@@ -5,12 +5,10 @@ import { ACTION_BUTTONS_CONFIG, CSS_CLASSES } from '../constants/gameboy';
 interface GameBoyButtonProps {
   button: ActionButton;
   onClick: () => void;
-  onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseUp: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onTouchStart: (e: React.TouchEvent<HTMLButtonElement>) => void;
-  onTouchEnd: (e: React.TouchEvent<HTMLButtonElement>) => void;
-  onTouchCancel: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  onPointerDown: (e: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerUp: (e: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerLeave: (e: React.PointerEvent<HTMLButtonElement>) => void;
+  onPointerCancel: (e: React.PointerEvent<HTMLButtonElement>) => void;
   className?: string;
   showLabel?: boolean;
 }
@@ -18,12 +16,10 @@ interface GameBoyButtonProps {
 const GameBoyButton = ({
   button,
   onClick,
-  onMouseDown,
-  onMouseUp,
-  onMouseLeave,
-  onTouchStart,
-  onTouchEnd,
-  onTouchCancel,
+  onPointerDown,
+  onPointerUp,
+  onPointerLeave,
+  onPointerCancel,
   className,
   showLabel = true,
 }: GameBoyButtonProps) => {
@@ -36,12 +32,10 @@ const GameBoyButton = ({
         id={config.id}
         className={className || config.className}
         onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseLeave}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-        onTouchCancel={onTouchCancel}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerLeave={onPointerLeave}
+        onPointerCancel={onPointerCancel}
         aria-label={`Botão ${config.label}`}
         type="button"
       />
